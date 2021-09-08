@@ -18,6 +18,8 @@ app.use(postRoutes);
 const PORT = 8000;
 const DB_URL = 'mongodb+srv://Nipuna:Nipuna@20@cluster0.js0dx.mongodb.net/mernCrud?retryWrites=true&w=majority'
 
+
+
 mongoose.connect(DB_URL,{
     useNewUrlParser: true,
     useUnifiedTopology: true
