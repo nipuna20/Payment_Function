@@ -27,7 +27,7 @@ export default class App extends Component {
     }
 
   render(){
-    const {holdername,cardnumber,totalamount,cardvalidation,paymentmethod,expiredate}= this.state.post;
+    const {holdername,cvv,card,cardname,expiredate,status}= this.state.post;
 
     return(
     <div style={{marginTop:'20px'}}>
@@ -35,20 +35,21 @@ export default class App extends Component {
         <hr/>
 
         <dl className="row">
-            <dt className="col-sm-3">CardNumber</dt>
-            <dd className="col-sm-9">{cardnumber}</dd>
+            <dt className="col-sm-3">Cvv</dt>
+            <dd className="col-sm-9">{cvv}</dd>
 
-            <dt className="col-sm-3">Total Amount</dt>
-            <dd className="col-sm-9">{totalamount}</dd> 
+            <dt className="col-sm-3">Card Number</dt>
+            <dd className="col-sm-9">{card}</dd> 
 
-            <dt className="col-sm-3">Card Validation</dt>
-            <dd className="col-sm-9">{cardvalidation}</dd>
-
-            <dt className="col-sm-3">Payment Method</dt>
-            <dd className="col-sm-9">{paymentmethod}</dd>
+            <dt className="col-sm-3">Card Name</dt>
+            <dd className="col-sm-9">{cardname}</dd>
 
             <dt className="col-sm-3">Expire Date</dt>
             <dd className="col-sm-9">{expiredate}</dd>
+
+            <dt className="col-sm-3">Status</dt>
+            <dd className="col-sm-9">{status}</dd>
+
 
             
         </dl>

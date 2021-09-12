@@ -15,10 +15,13 @@ export default class NavBar extends Component {
               <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/add">Features</a>
+              <a class="nav-link active" aria-current="page" href="/cardpayment/">Card Payment Table</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link" href="/refund">Paypal Payment Table</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Payment List</a>
             </li>
             <li class="nav-item">
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
