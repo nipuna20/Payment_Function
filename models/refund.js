@@ -1,12 +1,21 @@
 const mongoose = require('mongoose');
 
-const postSchema = new mongoose.Schema({
+const refundSchema = new mongoose.Schema({
 
-    holdername:{
+
+    firstn:{
         type:String,
         required:true
     },
-    cvv:{
+    lastn:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+        required:true
+    },
+    phone:{
         type:String,
         required:true
     },
@@ -14,11 +23,11 @@ const postSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    cardname:{
+    expiredate:{
         type:String,
         required:true
     },
-    expiredate:{
+    Cvv:{
         type:String,
         required:true
     },
@@ -26,9 +35,10 @@ const postSchema = new mongoose.Schema({
         type:String,
         default:"pending"
     }
+    
 
 
 
 });
 
-module.exports = mongoose.model('Posts',postSchema)
+module.exports = mongoose.model('refund',refundSchema)

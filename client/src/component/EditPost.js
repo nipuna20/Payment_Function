@@ -8,12 +8,11 @@ export default class EditPost extends Component {
     super(props);
     this.state={
       holdername:"",
-      cardnumber:"",
-      totalamount:"",
-      cardvalidation:"",
-      paymentmethod:"",
-      expiredate:"",
-      status:""
+            cvv:"",
+            card:"",
+            cardname:"",
+            expiredate:"",
+            status:""
     }
   }
 
@@ -31,14 +30,13 @@ export default class EditPost extends Component {
     
     e.preventDefault();
     const id = this.props.match.params.id;
-    const {holdername,cardnumber,totalamount,cardvalidation,paymentmethod,expiredate,status} = this.state;
+    const {holdername,cvv,card,cardname,expiredate,status} = this.state;
 
     const data ={
       holdername:holdername,
-      cardnumber:cardnumber,
-      totalamount:totalamount,
-      cardvalidation:cardvalidation,
-      paymentmethod:paymentmethod,
+      cvv:cvv,
+      card:card,
+      cardname:cardname,
       expiredate:expiredate,
       status:status
     }
@@ -51,10 +49,9 @@ export default class EditPost extends Component {
         this.setState(
           {
             holdername:"",
-            cardnumber:"",
-            totalamount:"",
-            cardvalidation:"",
-            paymentmethod:"",
+            cvv:"",
+            card:"",
+            cardname:"",
             expiredate:"",
             status:""
           }
@@ -74,11 +71,11 @@ export default class EditPost extends Component {
       if(res.data.success){
         this.setState({
           holdername:res.data.post.holdername,
-          cardnumber:res.data.post.cardnumber,
-          totalamount:res.data.post.totalamount,
-          cardvalidation:res.data.post.cardvalidation,
-          paymentmethod:res.data.post.paymentmethod,
+          cvv:res.data.post.cvv,
+          card:res.data.post.card,
+          cardname:res.data.post.cardname,
           expiredate:res.data.post.expiredate,
+          status:res.data.post.status,
         });
 
         console.log(this.state.post);
@@ -104,43 +101,32 @@ export default class EditPost extends Component {
             </div>
 
             <div className="form-group" style={{marginBottom:'15px'}}>
+              <label style={{marginBottom:'5px'}}>Cvv</label>
+              <input type="text"
+              className="form-control"
+              name="cvv"
+              placeholder="XXX"
+              value={this.state.cvv}
+              onChange={this.handleInputChange}/>
+            </div>
+
+            <div className="form-group" style={{marginBottom:'15px'}}>
               <label style={{marginBottom:'5px'}}>Card Number</label>
               <input type="text"
               className="form-control"
-              name="cardnumber"
+              name="card"
               placeholder="Card Number"
-              value={this.state.cardnumber}
-              onChange={this.handleInputChange}/>
-            </div>
-
-
-            <div className="form-group" style={{marginBottom:'15px'}}>
-              <label style={{marginBottom:'5px'}}>Total Amount</label>
-              <input type="text"
-              className="form-control"
-              name="totalamount"
-              placeholder="Total Amount"
-              value={this.state.totalamount}
+              value={this.state.card}
               onChange={this.handleInputChange}/>
             </div>
 
             <div className="form-group" style={{marginBottom:'15px'}}>
-              <label style={{marginBottom:'5px'}}>Card Validation</label>
+              <label style={{marginBottom:'5px'}}>Card Name</label>
               <input type="text"
               className="form-control"
-              name="cardvalidation"
-              placeholder="Card Validationt"
-              value={this.state.cardvalidation}
-              onChange={this.handleInputChange}/>
-            </div>
-
-            <div className="form-group" style={{marginBottom:'15px'}}>
-              <label style={{marginBottom:'5px'}}>Payment Method</label>
-              <input type="text"
-              className="form-control"
-              name="paymentmethod"
-              placeholder="Payment Method"
-              value={this.state.paymentmethod}
+              name="cardname"
+              placeholder="Card Name"
+              value={this.state.cardname}
               onChange={this.handleInputChange}/>
             </div>
 

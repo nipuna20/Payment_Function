@@ -7,6 +7,7 @@ const app = express();
 
 //import routes
 const postRoutes = require('./routes/posts');
+const refundRoutes = require('./routes/refund');
 
 //app middleware
 app.use(bodyParser.json());
@@ -14,6 +15,7 @@ app.use(cors());
 
 //route middleware
 app.use(postRoutes);
+app.use(refundRoutes);
 
 const PORT = 8000;
 const DB_URL = 'mongodb+srv://Nipuna:Nipuna@20@cluster0.js0dx.mongodb.net/mernCrud?retryWrites=true&w=majority'
