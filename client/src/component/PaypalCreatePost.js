@@ -4,7 +4,7 @@ import swal from 'sweetalert';
 
 
 
-export default class Refunding extends Component {
+export default class PaypalCreatePost extends Component {
 
   constructor(props){
     super(props);
@@ -51,8 +51,10 @@ export default class Refunding extends Component {
     const re = /^[0-9\b]+$/;
     const em = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const cv = /^[0-9\b]+$/;
-
-    if((!re.test(String(phone))) || (phone.length != 10))
+    if(firstn == "" || lastn == "" || email == "" || phone == "" || card == "" || expiredate=="" || Cvv=="" || status==""){
+      swal("Please fill the form correctly", "Form values cannot be empty", "error");
+    }
+     else if((!re.test(String(phone))) || (phone.length != 10))
     {swal("Contact Number invaide", "contact number should be valide pattern", "error");}
     else if((!em.test(String(email)))){
       swal("Invalid email address !", "Please enter valid email address !", "error");}
@@ -61,6 +63,15 @@ export default class Refunding extends Component {
 
     }
     else {
+        swal({
+          title: "Are you sure?",
+          text: `First Name: ${this.state.firstn} | Last Name: ${this.state.lastn} | Email: ${this.state.email} | Phone: ${this.state.phone} | Card: ${this.state.card} | Expire Date: ${this.state.expiredate}  | Cvv: ${this.state.Cvv}  | Status: ${this.state.status}}` ,
+          icon: "info",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
     axios.post("http://localhost:8000/refund/save",data).then((res) =>{
       if(res.data.success){
         this.setState(
@@ -74,19 +85,49 @@ export default class Refunding extends Component {
             Cvv:"",
             status:""
 
-          }
-        )
+          }    
 
-        
-        swal("Order Added Successfully!", "Your oder will be accepted", "success");
-      }
-    })
+          )
 
+          // swal("Order Added Successfully!", "Your oder will be accepted"+ `${this.state.status}`, "success");
 
-  }
-  }
+        }
+
+      })
+
+      swal("Order Added Successfully!", {
+
+        icon: "success",
+
+      });
+
+    } else {
+
+      swal("Your Order is not completed!");
+
+    }
+
+  });
+} 
+
+}
   render() {
     return (
+      <div class="row">
+  
+    <div class="col-6">
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    
+      <img src="https://c.tenor.com/MaFejK1rRAQAAAAC/paypal-logo.gif" width="90%" height="78%" />
+    </div>
+    <div class="col-6">
+
+    <div className="card" >
+
+<div className="card-body"></div>
         <div className="col-md-8 mt-4 mx-auto">
           <h1 className="h3 mb-3 font-weight-normal">Paypal New Payment</h1>
           <form className="needs-validation" noValidate>
@@ -168,10 +209,61 @@ export default class Refunding extends Component {
               &nbsp; Save
             </button>
           
-            
+            <br/>
 
           
           </form>
+
+          
+          </div>
+          </div>
+          </div>
+
+          <footer class="page-footer font-small special-color-dark pt-4" style={{ backgroundColor: '#999999' }} >
+
+
+<div class="container">
+
+
+  <ul class="list-unstyled list-inline text-center">
+    <li class="list-inline-item">
+      <a class="btn-floating btn-fb mx-1">
+        <i class="fab fa-facebook-f"> </i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a class="btn-floating btn-tw mx-1">
+        <i class="fab fa-twitter"> </i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a class="btn-floating btn-gplus mx-1">
+        <i class="fab fa-google-plus-g"> </i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a class="btn-floating btn-li mx-1">
+        <i class="fab fa-linkedin-in"> </i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a class="btn-floating btn-dribbble mx-1">
+        <i class="fab fa-dribbble"> </i>
+      </a>
+    </li>
+  </ul>
+
+
+
+</div>
+
+
+<div class="footer-copyright text-center py-3">© 2021 Copyright:
+  <a href="https://mdbootstrap.com/">estiloonline@gmail.com</a>
+</div>
+
+
+</footer>
           
         </div>
     )

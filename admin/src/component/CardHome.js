@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class refundhome extends Component {
+export default class CardHome extends Component {
 constructor(props){
   super(props);
 
   this.state={
-  posts: []
+    posts:[]
   };
 
 }
@@ -17,7 +17,7 @@ componentDidMount(){
 }
 
 retrievePosts(){
-  axios.get("http://localhost:8000/refund").then(res =>{
+  axios.get("/posts").then(res =>{
     if(res.data.success){
       this.setState({
         posts:res.data.existingPosts
@@ -33,33 +33,31 @@ retrievePosts(){
 
 onDelete = (id) =>{
 
-  axios.delete(`http://localhost:8000/refund/delete/${id}`).then((res) =>{
+  axios.delete(`/post/delete/${id}`).then((res) =>{
     alert("Delete Succesfully");
     this.retrievePosts();
   })
 
 }
 
-filterData(refund,searchKey){
+filterData(posts,searchKey){
 
-  const result = refund.filter((post) =>
-    post.firstn.includes(searchKey) ||
-    post.firstn.toLowerCase().includes(searchKey) ||
-    post.lastn.includes(searchKey) ||
-    post.lastn.toLowerCase().includes(searchKey) ||
-    post.email.includes(searchKey) ||
-    post.email.toLowerCase().includes(searchKey) ||
-    post.phone.includes(searchKey) ||
-    post.phone.toLowerCase().includes(searchKey) ||
+  const result = posts.filter((post) =>
+    post.holdername.includes(searchKey) ||
+    post.holdername.toLowerCase().includes(searchKey) ||
+    post.cvv.includes(searchKey) ||
+    post.cvv.toLowerCase().includes(searchKey) ||
     post.card.includes(searchKey) ||
     post.card.toLowerCase().includes(searchKey) ||
+    post.cardname.includes(searchKey) ||
+    post.cardname.toLowerCase().includes(searchKey) ||
     post.expiredate.includes(searchKey) ||
     post.expiredate.toLowerCase().includes(searchKey) ||
-    post.cvv.includes(searchKey) ||
-    post.cvv.toLowerCase().includes(searchKey)
+    post.status.includes(searchKey) ||
+    post.status.toLowerCase().includes(searchKey) 
   )
 
-  this.setState({refund:result})
+  this.setState({posts:result})
 
 }
 
@@ -68,7 +66,7 @@ handleSearchArea = (e) =>{
 
   const searchKey = e.currentTarget.value;
 
-  axios.get("refund").then(res =>{
+  axios.get("/posts").then(res =>{
     if(res.data.success){
      
       this.filterData(res.data.existingPosts,searchKey)
@@ -95,17 +93,15 @@ handleSearchArea = (e) =>{
           </div>
         </div>
       
-        <table className="table table-striped">
+        <table className="table">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Phone Number</th>
-              <th scope="col">Card Number</th>
-              <th scope="col">Expire Date</th>
+              <th scope="col">CardHolder Name</th>
               <th scope="col">Cvv</th>
+              <th scope="col">Card Number</th>
+              <th scope="col">Card Name</th>
+              <th scope="col">Expire Date</th>
               <th scope="col">Status</th>
               <th scope="col">Action</th>
             </tr>
@@ -116,15 +112,13 @@ handleSearchArea = (e) =>{
                 <th scope="row">{index+1}</th>
                 <td>
                     <a href={`/post/${posts._id}`} style={{textDecoration:'none'}}>
-                    {posts.firstn}
+                    {posts.holdername}
                     </a>
                 </td>
-                <td>{posts.lastn}</td>
-                <td>{posts.email}</td>
-                <td>{posts.phone}</td>
+                <td>{posts.cvv}</td>
                 <td>{posts.card}</td>
+                <td>{posts.cardname}</td>
                 <td>{posts.expiredate}</td>
-                <td>{posts.Cvv}</td>
                 <td>{posts.status}</td>
                 <td>
                   <a className="btn btn-warning" href={`/edit/${posts._id}`}>
@@ -143,7 +137,7 @@ handleSearchArea = (e) =>{
 
         </table>
 
-        <button className="btn btn-success"><a href="/refund/add" style={{textDecoration:'none',color:'white'}}>Create New Payment</a></button>
+        <button className="btn btn-success"><a href="/add" style={{textDecoration:'none',color:'white'}}>Create New Payment</a></button>
         <br/>
         
       </div>

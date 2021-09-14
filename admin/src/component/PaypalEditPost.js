@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class EditPost extends Component {
+export default class PaypalEditPost extends Component {
 
 
   constructor(props){
@@ -13,7 +13,8 @@ export default class EditPost extends Component {
       phone:"",
       card:"",
       expiredate:"",
-      Cvv:""
+      Cvv:"",
+      status:"pending"
     }
   }
 
@@ -31,7 +32,7 @@ export default class EditPost extends Component {
     
     e.preventDefault();
     const id = this.props.match.params.id;
-    const {firstn,lastn,email,phone,card,expiredate,Cvv,} = this.state;
+    const {firstn,lastn,email,phone,card,expiredate,Cvv,status} = this.state;
 
     const data ={
       firstn:firstn,
@@ -40,7 +41,8 @@ export default class EditPost extends Component {
       phone:phone,
       card:card,
       expiredate:expiredate,
-      Cvv:Cvv
+      Cvv:Cvv,
+      status:status
     }
 
     console.log(data)
@@ -56,7 +58,8 @@ export default class EditPost extends Component {
             phone:"",
             card:"",
             expiredate:"",
-            Cvv:""
+            Cvv:"",
+            status:""
           }
         )
       }
@@ -70,7 +73,7 @@ export default class EditPost extends Component {
 
     const id = this.props.match.params.id;
 
-    axios.get(`/post/${id}`).then((res) =>{
+    axios.get(`/refund/${id}`).then((res) =>{
       if(res.data.success){
         this.setState({
           firstn:res.data.post.firstn,
@@ -80,6 +83,7 @@ export default class EditPost extends Component {
           card:res.data.post.card,
           expiredate:res.data.post.expiredate,
           Cvv:res.data.post.Cvv,
+          status:res.data.post.status,
         });
 
         console.log(this.state.post);
@@ -92,7 +96,7 @@ export default class EditPost extends Component {
   render() {
     return (
       <div className="col-md-8 mt-4 mx-auto">
-      <h1 className="h3 mb-3 font-weight-normal">Create new Payment</h1>
+      <h1 className="h3 mb-3 font-weight-normal">Edit Paypal Payment</h1>
       <form className="needs-validation" noValidate>
         <div className="form-group" style={{marginBottom:'15px'}}>
           <label style={{marginBottom:'5px'}} >First Name</label>
@@ -165,6 +169,16 @@ export default class EditPost extends Component {
           onChange={this.handleInputChange}/>
         </div>
 
+        <div className="form-group" style={{marginBottom:'15px'}}>
+          <label style={{marginBottom:'5px'}}>Status</label>
+          <input type="text"
+          className="form-control"
+          name="status"
+          placeholder="status"
+          value={this.state.status}
+          onChange={this.handleInputChange}/>
+        </div>
+
 
 
 
@@ -173,8 +187,8 @@ export default class EditPost extends Component {
               <i className="far fa-check-square"></i>
               &nbsp; Update
             </button>
-            <br/>
-            <button className="btn btn-success"><a href="/addd" style={{textDecoration:'none',color:'white'}}>Create New Payment</a></button>
+            
+          
           </form>
           
         </div>

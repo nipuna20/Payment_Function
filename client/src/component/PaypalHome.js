@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class Home extends Component {
+export default class PaypalHome extends Component {
 constructor(props){
   super(props);
 
   this.state={
-    posts:[]
+  posts: []
   };
 
 }
@@ -17,7 +17,7 @@ componentDidMount(){
 }
 
 retrievePosts(){
-  axios.get("/posts").then(res =>{
+  axios.get("http://localhost:8000/refund").then(res =>{
     if(res.data.success){
       this.setState({
         posts:res.data.existingPosts
@@ -33,7 +33,7 @@ retrievePosts(){
 
 onDelete = (id) =>{
 
-  axios.delete(`/post/delete/${id}`).then((res) =>{
+  axios.delete(`http://localhost:8000/refund/delete/${id}`).then((res) =>{
     alert("Delete Succesfully");
     this.retrievePosts();
   })
@@ -43,18 +43,20 @@ onDelete = (id) =>{
 filterData(posts,searchKey){
 
   const result = posts.filter((post) =>
-    post.holdername.includes(searchKey) ||
-    post.holdername.toLowerCase().includes(searchKey) ||
-    post.cardnumber.includes(searchKey) ||
-    post.cardnumber.toLowerCase().includes(searchKey) ||
-    post.totalamount.includes(searchKey) ||
-    post.totalamount.toLowerCase().includes(searchKey) ||
-    post.cardvalidation.includes(searchKey) ||
-    post.cardvalidation.toLowerCase().includes(searchKey) ||
-    post.paymentmethod.includes(searchKey) ||
-    post.paymentmethod.toLowerCase().includes(searchKey) ||
+    post.firstn.includes(searchKey) ||
+    post.firstn.toLowerCase().includes(searchKey) ||
+    post.lastn.includes(searchKey) ||
+    post.lastn.toLowerCase().includes(searchKey) ||
+    post.email.includes(searchKey) ||
+    post.email.toLowerCase().includes(searchKey) ||
+    post.phone.includes(searchKey) ||
+    post.phone.toLowerCase().includes(searchKey) ||
+    post.card.includes(searchKey) ||
+    post.card.toLowerCase().includes(searchKey) ||
     post.expiredate.includes(searchKey) ||
-    post.expiredate.toLowerCase().includes(searchKey) 
+    post.expiredate.toLowerCase().includes(searchKey) ||
+    post.Cvv.includes(searchKey) ||
+    post.Cvv.toLowerCase().includes(searchKey)
   )
 
   this.setState({posts:result})
@@ -66,7 +68,7 @@ handleSearchArea = (e) =>{
 
   const searchKey = e.currentTarget.value;
 
-  axios.get("/posts").then(res =>{
+  axios.get("http://localhost:8000/refund").then(res =>{
     if(res.data.success){
      
       this.filterData(res.data.existingPosts,searchKey)
@@ -93,15 +95,17 @@ handleSearchArea = (e) =>{
           </div>
         </div>
       
-        <table className="table">
+        <table className="table table-striped">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">CardHolder Nam</th>
-              <th scope="col">Cvv</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone Number</th>
               <th scope="col">Card Number</th>
-              <th scope="col">Card Name</th>
               <th scope="col">Expire Date</th>
+              <th scope="col">Cvv</th>
               <th scope="col">Status</th>
               <th scope="col">Action</th>
             </tr>
@@ -111,17 +115,19 @@ handleSearchArea = (e) =>{
               <tr key={index}>
                 <th scope="row">{index+1}</th>
                 <td>
-                    <a href={`/post/${posts._id}`} style={{textDecoration:'none'}}>
-                    {posts.holdername}
+                    <a href={`/refund/post/${posts._id}`} style={{textDecoration:'none'}}>
+                    {posts.firstn}
                     </a>
                 </td>
-                <td>{posts.cvv}</td>
-                <td>{posts.Card}</td>
-                <td>{posts.cardname}</td>
+                <td>{posts.lastn}</td>
+                <td>{posts.email}</td>
+                <td>{posts.phone}</td>
+                <td>{posts.card}</td>
                 <td>{posts.expiredate}</td>
+                <td>{posts.Cvv}</td>
                 <td>{posts.status}</td>
                 <td>
-                  <a className="btn btn-warning" href={`/edit/${posts._id}`}>
+                  <a className="btn btn-warning" href={`/refund/edit/${posts._id}`}>
                     <i className="fas fa-edit"></i>&nbsp;Edit
                   </a>
                   &nbsp;
@@ -137,7 +143,7 @@ handleSearchArea = (e) =>{
 
         </table>
 
-        <button className="btn btn-success"><a href="/add" style={{textDecoration:'none',color:'white'}}>Create New Payment</a></button>
+        <button className="btn btn-success"><a href="/refund/add" style={{textDecoration:'none',color:'white'}}>Create New Payment</a></button>
         <br/>
         
       </div>

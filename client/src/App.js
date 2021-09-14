@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {BrowserRouter,Route} from 'react-router-dom';
-import CreatePost from './component/CreatePost';
-import Home from './component/Home';
-import EditPost from './component/EditPost';
-import PostDetails from './component/PostDetails';
+import CardCreatePost from './component/CardCreatePost';
+import CardHome from './component/CardHome';
+import CardEditPost from './component/CardEditPost';
+import CardPostDetails from './component/CardPostDetails';
 import NavBar from './component/NavBar';
-import Refunding from './component/Refunding';
-import refundhome from './component/refundhome';
-import refundpost from './component/refundpost';
-import refundedit from './component/refundedit';
+import PaypalCreatePost from './component/PaypalCreatePost';
+import PaypalHome from './component/PaypalHome';
+import PaypalPostDetails from './component/PaypalPostDetails';
+import PaypalEditPost from './component/PaypalEditPost';
 import PayHome from './component/PayHome';
 
 export default class App extends Component {
@@ -19,16 +19,16 @@ export default class App extends Component {
         <div className="container">
           <NavBar/>
           <Route path="/" exact component={PayHome}></Route>
-          <Route path="/cardpayment" exact component={Home}></Route>
-          <Route path="/add" component={CreatePost}></Route>
-          <Route path="/edit/:id" component={EditPost}></Route>
-          <Route path="/post/:id" component={PostDetails}></Route>
+          <Route path="/cardpayment" exact component={CardHome}></Route>  
+          <Route path="/add" component={CardCreatePost}></Route>
+          <Route path="/edit/:id" component={CardEditPost}></Route>
+          <Route path="/post/:id" component={CardPostDetails}></Route>
          
 
-          <Route path="/refund" exact component={refundhome}></Route>
-          <Route path="/refund/edit/:id" component={refundedit}></Route>
-          <Route path="/refund/post/:id" component={refundpost}></Route>
-          <Route path="/refund/add" component={Refunding}></Route>
+          <Route path="/refund" exact component={PaypalHome}></Route>
+          <Route path="/refund/edit/:id" component={PaypalEditPost}></Route>
+          <Route path="/refund/post/:id" component={PaypalPostDetails}></Route> 
+          <Route path="/refund/add" component={PaypalCreatePost}></Route>
 
        </div>
       </BrowserRouter>

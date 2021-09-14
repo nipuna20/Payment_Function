@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class EditPost extends Component {
+export default class CardEditPost extends Component {
 
 
   constructor(props){
     super(props);
     this.state={
       holdername:"",
-            cvv:"",
-            card:"",
-            cardname:"",
-            expiredate:"",
-            status:""
+      cvv:"",
+      card:"",
+      cardname:"",
+      expiredate:"",
+      status:""
     }
   }
 
@@ -43,7 +43,7 @@ export default class EditPost extends Component {
 
     console.log(data)
 
-    axios.put(`/post/update/${id}`,data).then((res) =>{
+    axios.put(`http://localhost:8000/post/update/${id}`,data).then((res) =>{
       if(res.data.success){
         alert("Post Updated Successfully")
         this.setState(
@@ -67,7 +67,7 @@ export default class EditPost extends Component {
 
     const id = this.props.match.params.id;
 
-    axios.get(`/post/${id}`).then((res) =>{
+    axios.get(`http://localhost:8000/post/${id}`).then((res) =>{
       if(res.data.success){
         this.setState({
           holdername:res.data.post.holdername,
@@ -159,7 +159,7 @@ export default class EditPost extends Component {
               &nbsp; Update
             </button>
             <br/>
-            <button className="btn btn-success"><a href="/addd" style={{textDecoration:'none',color:'white'}}>Create New Payment</a></button>
+           
           </form>
           
         </div>
