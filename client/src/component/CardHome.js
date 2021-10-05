@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import jsPdf from 'jspdf'
+import 'jspdf-autotable'
 
 export default class CardHome extends Component {
 constructor(props){
@@ -75,6 +77,24 @@ handleSearchArea = (e) =>{
 
 }
 
+ //pdf generating
+ jsPdfGenerator = () => {
+
+  //new document in jspdf
+  var doc = new jsPdf('p','pt');
+
+  doc.text(210,30,"Card Payment Details")
+  doc.autoTable({  html:'#my-table' })
+
+  doc.autoTable({
+    columnStyles: { europe: { halign: 'center' } }, 
+    margin: { top: 10 },
+  })
+
+  //save the pdf
+  doc.save("Card Payment Details.pdf");
+}
+
   render() {
     return (
       <div className="container">
@@ -92,8 +112,9 @@ handleSearchArea = (e) =>{
             </input>
           </div>
         </div>
-      
-        <table className="table">
+      <br/> <button onClick={this.jsPdfGenerator} type="button" class="btn btn-primary">Pdf</button> <br/>
+      <br/>
+        <table id="my-table" className="table">
           <thead>
             <tr>
               <th scope="col">#</th>

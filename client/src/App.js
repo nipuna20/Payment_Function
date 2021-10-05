@@ -10,14 +10,16 @@ import PaypalHome from './component/PaypalHome';
 import PaypalPostDetails from './component/PaypalPostDetails';
 import PaypalEditPost from './component/PaypalEditPost';
 import PayHome from './component/PayHome';
+import Footer from './component/Footer';
 
 export default class App extends Component {
   render() {
     return ( 
       
       <BrowserRouter>
+       <NavBar/>
         <div className="container">
-          <NavBar/>
+         
           <Route path="/" exact component={PayHome}></Route>
           <Route path="/cardpayment" exact component={CardHome}></Route>  
           <Route path="/add" component={CardCreatePost}></Route>
@@ -31,6 +33,7 @@ export default class App extends Component {
           <Route path="/refund/add" component={PaypalCreatePost}></Route>
 
        </div>
+       <Footer/>
       </BrowserRouter>
 
     )
