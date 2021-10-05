@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import jsPdf from 'jspdf'
+import 'jspdf-autotable'
 
 export default class PaypalHome extends Component {
 constructor(props){
@@ -77,6 +79,24 @@ handleSearchArea = (e) =>{
 
 }
 
+//pdf generating
+jsPdfGenerator = () => {
+
+  //new document in jspdf
+  var doc = new jsPdf('p','pt');
+
+  doc.text(210,30,"Card Payment Details")
+  doc.autoTable({  html:'#my-table' })
+
+  doc.autoTable({
+    columnStyles: { europe: { halign: 'center' } }, 
+    margin: { top: 10 },
+  })
+
+  //save the pdf
+  doc.save("Card Payment Details.pdf");
+}
+
   render() {
     return (
       <div className="container">
@@ -94,8 +114,11 @@ handleSearchArea = (e) =>{
             </input>
           </div>
         </div>
+
+        <br/> <button onClick={this.jsPdfGenerator} type="button" class="btn btn-primary">Pdf</button> <br/>
+      <br/>
       
-        <table className="table table-striped">
+        <table id="my-table" className="table table-striped">
           <thead>
             <tr>
               <th scope="col">#</th>

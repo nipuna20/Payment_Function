@@ -2,6 +2,7 @@ import react, {Component} from 'react';
 import axios from 'axios';
 
 
+
 export default class CardPostDetails extends Component {
     constructor(props){
         super(props);
@@ -26,11 +27,22 @@ export default class CardPostDetails extends Component {
 
     }
 
+     
+
+
+    
+
   render(){
     const {holdername,cvv,card,cardname,expiredate,status}= this.state.post;
 
     return(
+
+            
+
     <div style={{marginTop:'20px'}}>
+
+
+
         <h4>{holdername}</h4>
         <hr/>
 
@@ -54,7 +66,12 @@ export default class CardPostDetails extends Component {
             
         </dl>
         
+        
+
     </div>
+
+        
+
     )
   }
 }
