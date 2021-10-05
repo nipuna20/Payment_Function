@@ -57,8 +57,7 @@ export default class CardCreatePost extends Component {
     {swal("Invalid Card Number !", "card number should be valide pattern", "error");}
    
    else if((!cv.test(String(cvv))) || (cvv.length != 3)){
-    
-      swal("Invalid Cvv !", "Do not enter less than 3 letters !", "error");
+    swal("Invalid Cvv !", "Do not enter less than 3 letters !", "error");
    }
     else{
       swal({
@@ -81,8 +80,6 @@ export default class CardCreatePost extends Component {
             cardname:"",
             expiredate:"",
             status:""
-
-         
           }    
 
           )
